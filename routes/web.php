@@ -100,16 +100,27 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     });
 });
 Route::get('/setup-itzone-2026', function () {
+    $out = "SETUP REPORT\n============\n";
     try {
-        if (\App\Models\User::count() > 0) {
-            return 'Already installed ✅';
+        $c = \App\Models\User::count();
+        $out .= "DB connection: OK ✅ (users=$c)\n";
+        if ($c > 0) {
+            return '<pre>' . e($out . "\nAlready installed ✅") . '</pre>';
         }
     } catch (\Throwable $e) {
+        $out .= "DB connection: FAILED ❌\n" . $e->getMessage() . "\n";
     }
-    \Artisan::call('migrate', ['--seed' => true, '--force' => true]);
+    try {
+        \Artisan::call('migrate', ['--seed' => true, '--force' => true]);
+        $out .= "\nMIGRATE + SEED OUTPUT:\n" . \Artisan::output();
+    } catch (\Throwable $e) {
+        $out .= "\nMIGRATE ERROR ❌\n" . $e->getMessage() . "\n";
+    }
     try {
         \Artisan::call('storage:link');
+        $out .= "\nstorage:link OK ✅\n";
     } catch (\Throwable $e) {
+        $out .= "\nstorage:link: " . $e->getMessage() . "\n";
     }
-    return 'DONE ✅' . \Artisan::output();
+    return '<pre>' . e($out) . '</pre>';
 });
