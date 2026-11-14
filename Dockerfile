@@ -2,7 +2,7 @@ FROM php:8.5-apache
 
 RUN apt-get update && apt-get install -y \
     libonig-dev libpq-dev libzip-dev unzip git \
-    && docker-php-ext-install -j1 pdo_pgsql mbstring opcache zip
+    && docker-php-ext-install -j1 pdo_pgsql mbstring zip
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
