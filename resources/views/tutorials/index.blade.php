@@ -24,10 +24,10 @@
         </div>
     </form>
 
-    <!-- البطاقات — الضغط يفتح قناة اليوتيوب -->
+    <!-- البطاقات — الضغط يفتح رابط الشرح (أو القناة إذا بلا رابط) -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse ($tutorials as $tutorial)
-            <a href="https://www.youtube.com/@IT_ZONE_ZU" target="_blank"
+            <a href="{{ $tutorial->video_url ?: 'https://www.youtube.com/@IT_ZONE_ZU' }}" target="_blank"
                 class="neon-card p-6 block">
                 <div class="flex items-start justify-between mb-4">
                     <div class="w-12 h-12 rounded-xl flex items-center justify-center text-xl"
@@ -49,7 +49,7 @@
 
                 <div class="flex items-center justify-between">
                     <span class="neon-btn px-4 py-2 text-sm">
-                        <i class="fa-brands fa-youtube ml-1"></i>شاهد على القناة
+                        <i class="fa-brands fa-youtube ml-1"></i>{{ $tutorial->video_url ? 'شاهد الشرح' : 'شاهد على القناة' }}
                     </span>
                     @if ($tutorial->file_path)
                         <span class="text-xs text-[#94a3b8]"><i class="fa-solid fa-paperclip ml-1"></i>ملف مرفق</span>

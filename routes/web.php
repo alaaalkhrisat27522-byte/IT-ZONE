@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 // الصفحة الرئيسية
 Route::get('/', function () {
-    return view('welcome');
+    $tutorials = \App\Models\Tutorial::where('is_published', true)->latest()->take(6)->get();
+    return view('welcome', compact('tutorials'));
 })->name('home');
 
 // تسجيل الدخول والخروج

@@ -1,0 +1,20 @@
+/* ===== IT Zone Responsive ===== */
+*, *::before, *::after { box-sizing: border-box; }
+img, video, iframe, embed { max-width: 100%; height: auto; }
+body { overflow-x: hidden; }
+
+@media (max-width: 992px) {
+    [class*="grid"] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+    [class*="hero"] h1, [class*="hero"] h2 { font-size: 2rem !important; }
+    [class*="stats"], [class*="features"] { flex-wrap: wrap !important; }
+}
+
+@media (max-width: 640px) {
+    [class*="grid"] { grid-template-columns: minmax(0, 1fr) !important; }
+    [class*="hero"] h1, [class*="hero"] h2 { font-size: 1.55rem !important; }
+    [class*="hero"] p { font-size: .95rem !important; }
+    [class*="nav"] { flex-wrap: wrap !important; justify-content: center !important; gap: 6px 12px !important; font-size: .85rem !important; }
+    [class*="card"] { max-width: 100% !important; }
+    [class*="container"], main, section { padding-left: 16px !important; padding-right: 16px !important; }
+    table { display: block; overflow-x: auto; }
+}
