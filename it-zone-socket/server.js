@@ -107,7 +107,7 @@ io.on('connection', (socket) => {
 // صفحة تحقق للمضيف
 app.get('/', (req, res) => res.send('IT Zone Socket OK'));
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
     console.log(`⚡ خادم IT Zone المباشر شغّال على المنفذ ${PORT}`);
 });
