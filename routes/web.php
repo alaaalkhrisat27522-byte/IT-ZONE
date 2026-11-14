@@ -99,3 +99,17 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
         Route::delete('/users/{user}', [\App\Http\Controllers\Admin\UserController::class, 'destroy'])->name('users.destroy');
     });
 });
+Route::get('/setup-itzone-2026', function () {
+    try {
+        if (\App\Models\User::count() > 0) {
+            return 'Already installed ✅';
+        }
+    } catch (\Throwable $e) {
+    }
+    \Artisan::call('migrate', ['--seed' => true, '--force' => true]);
+    try {
+        \Artisan::call('storage:link');
+    } catch (\Throwable $e) {
+    }
+    return 'DONE ✅' . \Artisan::output();
+});
